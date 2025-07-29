@@ -1,73 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BCSDA Network Intelligence Agent</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="chat-container" id="chatContainer">
-    <h2 class="title">Welcome to BCSDA Network Intelligence Agent</h2>
-    <p class="subtitle">Ask anything about the network</p>
-    
-    <div class="chat-messages" id="chatMessages">
-      <!-- Messages will be injected here -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BCSDA Network Intelligence Agent</title>
+    <script type="module" crossorigin src="/n8n_rag_test_1/assets/index-B2cJJOG_.js"></script>
+    <link rel="stylesheet" crossorigin href="/n8n_rag_test_1/assets/index-FBOGPVml.css">
+  </head>
+  <body>
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        <h2>Welcome to BCSDA Network Intelligence Agent</h2>
+        <p>Ask anything about the network</p>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <!-- Messages will appear here -->
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type your question.." />
+        <button id="sendBtn">Send</button>
+      </div>
     </div>
 
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your question.." />
-      <button id="sendBtn">Send</button>
-    </div>
-  </div>
-
-  <script>
-    const container = document.getElementById('chatContainer');
-    const input = document.getElementById('userInput');
-    const messages = document.getElementById('chatMessages');
-    const sendBtn = document.getElementById('sendBtn');
-
-    let expanded = false;
-    input.addEventListener('focus', () => {
-      if (!expanded) {
-        container.classList.add('expanded');
-        expanded = true;
-      }
-    });
-
-    function appendMessage(text, type = 'user') {
-      const msg = document.createElement('div');
-      msg.classList.add('message', type);
-      msg.textContent = text;
-      messages.appendChild(msg);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    async function sendMessage() {
-      const text = input.value.trim();
-      if (!text) return;
-
-      appendMessage(text, 'user');
-      input.value = '';
-
-      try {
-        const response = await fetch('https://alt-auto-ai.app.n8n.cloud/webhook/e985d15f-b2f6-456d-be15-97e0b1544a40/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text })
-        });
-
-        const data = await response.json();
-        appendMessage(data.reply || 'Error in workflow', 'bot');
-      } catch {
-        appendMessage('Error in workflow', 'bot');
-      }
-    }
-
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', e => {
-      if (e.key === 'Enter') sendMessage();
-    });
-  </script>
-</body>
+    <!-- Load Vite-powered JavaScript -->
+  </body>
 </html>
