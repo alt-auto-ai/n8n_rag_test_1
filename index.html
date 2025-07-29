@@ -147,13 +147,13 @@
       const response = await fetch('https://alt-auto-ai.app.n8n.cloud/webhook/e985d15f-b2f6-456d-be15-97e0b1544a40/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg })
+        body: JSON.stringify({ text: msg }) 
       });
 
       const data = await response.json();
       const reply = document.createElement('div');
       reply.className = 'bot-message message';
-      reply.textContent = data?.message || 'No response.';
+      reply.textContent = data?.output || data?.text || 'No response.';
       chat.appendChild(reply);
       chat.scrollTop = chat.scrollHeight;
     }
